@@ -8,3 +8,5 @@ gulp.task 'coffee', ->
     .pipe coffee bare: true
       .on 'error', gutil.log
     .pipe gulp.dest '.'
+
+gulp.task 'test', ->
