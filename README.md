@@ -15,23 +15,24 @@ Take a look at Este.js [gulpfile.coffee](https://github.com/steida/este/blob/mas
 
 ## Task Helpers
 
-- stylus
+- bg (run command line app with args)
+- bump (bump packages version)
 - coffee
-- react
-- unitTest
-- diContainer
+- compile (via Closure Compiler)
+- concatAll (concat all files for browser)
 - concatDeps
-- concatAll
+- deleteOrphans (delete foo.js without foo.coffee, etc.)
+- diContainer (generate DI containers)
+- getExterns (retrieve Node.js externs files)
 - liveReloadNotify
 - liveReloadServer
-- shouldCreateDeps
-- shouldNotify
+- react
 - setNodeEnv
-- compile
-- getExterns
+- shouldCreateDeps (for watch mode, create deps only when needed)
+- shouldNotify
+- stylus
+- unitTest
 - watch
-- bg
-- bump
 
 ## License
 
