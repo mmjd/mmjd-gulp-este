@@ -9,4 +9,4 @@ gulp.task 'coffee', ->
       .on 'error', gutil.log
     .pipe gulp.dest '.'
 
-gulp.task 'test', ->
+gulp.task 'test', ['coffee'], ->
