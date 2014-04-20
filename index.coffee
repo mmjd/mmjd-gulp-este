@@ -41,8 +41,13 @@ module.exports = class GulpEste
   globals: null
   liveReloadServer: null
 
-  # NOTE: gulp-stylus doesn't report fileName on error. Waiting for Gulp 4.
+  ###*
+    NOTE: gulp-stylus doesn't report fileName on error. Waiting for Gulp 4.
+    @param {(string|Array.<string>)} paths
+    @return {Stream} Node.js Stream.
+  ###
   stylus: (paths) ->
+    paths = [paths] if not Array.isArray paths
     streams = paths.map (path) =>
       gulp.src path, base: '.'
         .pipe stylus set: ['include css']
@@ -58,7 +63,12 @@ module.exports = class GulpEste
     # github.com/gulpjs/gulp/issues/258.
     return
 
+  ###*
+    @param {(string|Array.<string>)} paths
+    @return {Stream} Node.js Stream.
+  ###
   coffee: (paths) ->
+    paths = [paths] if not Array.isArray paths
     gulp.src @changedFilePath ? paths, base: '.'
       .pipe plumber()
       .pipe coffee bare: true
@@ -66,20 +76,36 @@ module.exports = class GulpEste
       .pipe coffee2closure()
       .pipe gulp.dest '.'
 
-  # NOTE: gulp-react doesn't report fileName on error. Waiting for Gulp 4.
+  ###*
+    NOTE: gulp-react doesn't report fileName on error. Waiting for Gulp 4.
+    @param {(string|Array.<string>)} paths
+    @return {Stream} Node.js Stream.
+  ###
   react: (paths) ->
+    paths = [paths] if not Array.isArray paths
     gulp.src @changedFilePath ? paths, base: '.'
       .pipe plumber()
       .pipe gulpReact harmony: true
       .on 'error', (err) -> gutil.log err.message
       .pipe gulp.dest '.'
 
+  ###*
+    @param {(string|Array.<string>)} paths
+    @return {Stream} Node.js Stream.
+  ###
   deps: (paths) ->
+    paths = [paths] if not Array.isArray paths
     gulp.src paths
       .pipe closureDeps fileName: 'deps0.js', prefix: @depsPrefix
       .pipe gulp.dest 'tmp'
 
+  ###*
+    @param {string} baseJsDir
+    @param {(string|Array.<string>)} paths
+    @return {Stream} Node.js Stream.
+  ###
   unitTest: (baseJsDir, paths) ->
+    paths = [paths] if not Array.isArray paths
     nodejsPath = path.join baseJsDir, 'bootstrap/nodejs'
     changedFilePath = @changedFilePath
 
@@ -125,6 +151,11 @@ module.exports = class GulpEste
       .pipe filter autoRequire
       .pipe mocha reporter: 'dot',  ui: 'tdd'
 
+  ###*
+    @param {string} baseJsDir
+    @param {Array.<Object>} diContainers
+    @return {Stream} Node.js Stream.
+  ###
   diContainer: (baseJsDir, diContainers) ->
     streams = for container, i in diContainers
       gulp.src 'tmp/deps0.js'
@@ -138,11 +169,18 @@ module.exports = class GulpEste
         .pipe gulp.dest 'tmp'
     eventStream.merge streams...
 
+  ###*
+    @return {Stream} Node.js Stream.
+  ###
   concatDeps: ->
     gulp.src 'tmp/deps?.js'
       .pipe concat 'deps.js'
       .pipe gulp.dest 'tmp'
 
+  ###*
+    @param {Object} object
+    @return {Stream} Node.js Stream.
+  ###
   concatAll: (object) ->
     streams = for buildPath, src of object
       src = if @production
@@ -167,9 +205,15 @@ module.exports = class GulpEste
     @liveReloadServer = livereload()
     return
 
+  ###*
+    @return {boolean}
+  ###
   shouldCreateDeps: ->
     closureDeps.changed @changedFilePath
 
+  ###*
+    @return {boolean}
+  ###
   shouldNotify: ->
     !@production && @changedFilePath
 
@@ -179,7 +223,14 @@ module.exports = class GulpEste
     else
       'development'
 
+  ###*
+    @param {(string|Array.<string>)} paths
+    @param {string} dest
+    @param {Object} customOptions
+    @return {Stream} Node.js Stream.
+  ###
   compile: (paths, dest, customOptions) ->
+    paths = [paths] if not Array.isArray paths
     options =
       fileName: 'app.js'
       compilerFlags:
@@ -207,6 +258,11 @@ module.exports = class GulpEste
       .pipe size showFiles: true, gzip: true
       .pipe gulp.dest dest
 
+  ###*
+    TODO: Do it smarter.
+    @param {string} dirs
+    @return {Array.<string>}
+  ###
   getExterns: (dir) ->
     fs.readdirSync dir
       .filter (file) -> /\.js$/.test file
@@ -216,6 +272,11 @@ module.exports = class GulpEste
         file not in ['stdio.js']
       .map (file) -> path.join dir, file
 
+  ###*
+    @param {Array.<string>} dirs
+    @param {Object} mapExtensionToTask
+    @param {Function} gulpStartCallback
+  ###
   watch: (dirs, mapExtensionToTask, gulpStartCallback) ->
     watch = esteWatch dirs, (e) =>
       @changedFilePath = path.resolve e.filepath
@@ -226,9 +287,18 @@ module.exports = class GulpEste
         @changedFilePath = null
     watch.start()
 
+  ###*
+    @param {string} cmd
+    @param {Array.<string>} args
+  ###
   bg: (cmd, args) ->
     bg cmd, args
 
+  ###*
+    @param {(string|Array.<string>)} paths
+    @param {Object} yargs
+    @param {Function} done
+  ###
   bump: (paths, yargs, done) ->
     args = yargs.alias('m', 'minor').argv
     type = args.major && 'major' || args.minor && 'minor' || 'patch'
