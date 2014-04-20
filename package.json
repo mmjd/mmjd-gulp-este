@@ -69,7 +69,8 @@
     "lodash": "^2.4.1",
     "react": "^0.10.0",
     "require-uncache": "0.0.2",
-    "sinon": "^1.9.1"
+    "sinon": "^1.9.1",
+    "gulp-rimraf": "0.0.10"
   },
   "devDependencies": {
     "coffee-script": "^1.7.1",

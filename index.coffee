@@ -27,6 +27,7 @@ plumber = require 'gulp-plumber'
 react = require 'react'
 rename = require 'gulp-rename'
 requireUncache = require 'require-uncache'
+rimraf = require 'gulp-rimraf'
 sinon = require 'sinon'
 size = require 'gulp-size'
 stylus = require 'gulp-stylus'
@@ -246,3 +247,22 @@ module.exports = class GulpEste
               git.tag version, message, {}, ->
                 git.push 'origin', 'master', args: ' --tags', done
     return
+
+  ###*
+    Remove transpiled files without their original source.
+    @param {Object.<string, Array.<string>>} object Key is glob and value
+      is list of extensions, for example: 'somefile.js': ['coffee', 'jsx']
+  ###
+  cleanOrphans: (object) ->
+    paths = Object.keys object
+    targets = {}
+    targets[glob.match /\.[^\.]+/] = exts for glob, exts of object
+    isOrphan = (file) ->
+      ext = path.extname file.path
+      for target in targets[ext]
+        return false if fs.existsSync file.path.replace ext, '.' + target
+      true
+
+    gulp.src paths, read: false
+      .pipe filter isOrphan
+      .pipe rimraf()
