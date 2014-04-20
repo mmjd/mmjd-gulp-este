@@ -253,7 +253,7 @@ module.exports = class GulpEste
     @param {Object.<string, Array.<string>>} object Key is glob and value
       is list of extensions, for example: 'somefile.js': ['coffee', 'jsx']
   ###
-  cleanOrphans: (object) ->
+  deleteOrphans: (object) ->
     paths = Object.keys object
     targets = {}
     targets[glob.match /\.[^\.]+/] = exts for glob, exts of object
