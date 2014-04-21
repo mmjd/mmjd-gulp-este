@@ -2,6 +2,7 @@ gulp = require 'gulp'
 
 coffee = require 'gulp-coffee'
 gutil = require 'gulp-util'
+yargs = require 'yargs'
 
 gulp.task 'coffee', ->
   gulp.src 'index.coffee'
@@ -10,3 +11,7 @@ gulp.task 'coffee', ->
     .pipe gulp.dest '.'
 
 gulp.task 'test', ['coffee'], ->
+
+gulp.task 'bump', ['coffee'], (done) ->
+  este = require '.index'
+  este.bump './*.json', yargs, done

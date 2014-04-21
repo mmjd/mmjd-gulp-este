@@ -75,6 +75,7 @@
   },
   "devDependencies": {
     "coffee-script": "^1.7.1",
-    "mocha": "*"
+    "mocha": "*",
+    "yargs": "^1.2.1"
   }
 }
