@@ -13,5 +13,5 @@ gulp.task 'coffee', ->
 gulp.task 'test', ['coffee'], ->
 
 gulp.task 'bump', ['coffee'], (done) ->
-  este = require '.index'
+  este = require './index'
   este.bump './*.json', yargs, done
