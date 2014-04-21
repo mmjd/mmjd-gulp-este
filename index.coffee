@@ -1,37 +1,19 @@
 gulp = require 'gulp'
 
 _ = require 'lodash'
-bg = require 'gulp-bg'
-bump = require 'gulp-bump'
-chai = require 'chai'
 closureCompiler = require 'gulp-closure-compiler'
 closureDeps = require 'gulp-closure-deps'
-coffee = require 'gulp-coffee'
-coffee2closure = require 'gulp-coffee2closure'
 concat = require 'gulp-concat'
 cond = require 'gulp-cond'
-diContainer = require 'gulp-closure-dicontainer'
-esteWatch = require 'este-watch'
 eventStream = require 'event-stream'
 filter = require 'gulp-filter'
 fs = require 'fs'
-git = require 'gulp-git'
-gulpReact = require 'gulp-react'
 gutil = require 'gulp-util'
-jsdom = require('jsdom').jsdom
-livereload = require 'gulp-livereload'
 minifyCss = require 'gulp-minify-css'
-mocha = require 'gulp-mocha'
-open = require 'open'
 path = require 'path'
 plumber = require 'gulp-plumber'
-react = require 'react'
 rename = require 'gulp-rename'
-requireUncache = require 'require-uncache'
-rimraf = require 'gulp-rimraf'
-sinon = require 'sinon'
 size = require 'gulp-size'
-stylus = require 'gulp-stylus'
 
 module.exports = class GulpEste
 
@@ -48,6 +30,8 @@ module.exports = class GulpEste
     @return {Stream} Node.js Stream.
   ###
   stylus: (paths) ->
+    stylus = require 'gulp-stylus'
+
     paths = [paths] if not Array.isArray paths
     streams = paths.map (path) =>
       gulp.src path, base: '.'
@@ -69,6 +53,9 @@ module.exports = class GulpEste
     @return {Stream} Node.js Stream.
   ###
   coffee: (paths) ->
+    coffee = require 'gulp-coffee'
+    coffee2closure = require 'gulp-coffee2closure'
+
     paths = [paths] if not Array.isArray paths
     gulp.src @changedFilePath ? paths, base: '.'
       .pipe plumber()
@@ -83,10 +70,12 @@ module.exports = class GulpEste
     @return {Stream} Node.js Stream.
   ###
   jsx: (paths) ->
+    jsx = require 'gulp-react'
+
     paths = [paths] if not Array.isArray paths
     gulp.src @changedFilePath ? paths, base: '.'
       .pipe plumber()
-      .pipe gulpReact harmony: true
+      .pipe jsx harmony: true
       .on 'error', (err) -> gutil.log err.message
       .pipe gulp.dest '.'
 
@@ -123,6 +112,13 @@ module.exports = class GulpEste
         changedFilePath = changedFilePath.replace '.js', '_test.js'
       return if not fs.existsSync changedFilePath
 
+    chai = require 'chai'
+    jsdom = require 'jsdom'
+    sinon = require 'sinon'
+    react = require 'react'
+    requireUncache = require 'require-uncache'
+    mocha = require 'gulp-mocha'
+
     # Clean global variables created during test. For instance: goog and este.
     Object.keys(global).forEach (key) =>
       return if @globals.indexOf(key) > -1
@@ -133,7 +129,7 @@ module.exports = class GulpEste
     global.sinon = sinon
 
     # Mock browser, add React.
-    doc = jsdom()
+    doc = jsdom.jsdom()
     global.window = doc.parentWindow
     global.document = doc.parentWindow.document
     global.navigator = doc.parentWindow.navigator
@@ -165,6 +161,8 @@ module.exports = class GulpEste
     @return {Stream} Node.js Stream.
   ###
   diContainer: (baseJsDir, diContainers) ->
+    diContainer = require 'gulp-closure-dicontainer'
+
     streams = for container, i in diContainers
       gulp.src 'tmp/deps0.js'
         .pipe diContainer
@@ -210,6 +208,7 @@ module.exports = class GulpEste
     @liveReloadServer.changed @changedFilePath
 
   liveReloadServer: ->
+    livereload = require 'gulp-livereload'
     @liveReloadServer = livereload()
     return
 
@@ -286,6 +285,8 @@ module.exports = class GulpEste
     @param {Function} gulpStartCallback
   ###
   watch: (dirs, mapExtensionToTask, gulpStartCallback) ->
+    esteWatch = require 'este-watch'
+
     watch = esteWatch dirs, (e) =>
       @changedFilePath = path.resolve e.filepath
       task = mapExtensionToTask[e.extension]
@@ -300,6 +301,7 @@ module.exports = class GulpEste
     @param {Array.<string>} args
   ###
   bg: (cmd, args) ->
+    bg = require 'gulp-bg'
     bg cmd, args
 
   ###*
@@ -308,6 +310,9 @@ module.exports = class GulpEste
     @param {Function} done
   ###
   bump: (paths, yargs, done) ->
+    bump = require 'gulp-bump'
+    git = require 'gulp-git'
+
     args = yargs.alias('m', 'minor').argv
     type = args.major && 'major' || args.minor && 'minor' || 'patch'
 
@@ -332,6 +337,8 @@ module.exports = class GulpEste
       is list of extensions, for example: 'somefile.js': ['coffee', 'jsx']
   ###
   deleteOrphans: (object) ->
+    rimraf = require 'gulp-rimraf'
+
     paths = Object.keys object
     targets = {}
     targets[glob.match /\.[^\.]+/] = exts for glob, exts of object
@@ -352,6 +359,7 @@ module.exports = class GulpEste
     @return {ChildProcess} The child process object.
   ###
   open: (target, appName = '') ->
+    open = require 'open'
     open target, appName
 
   ###*
