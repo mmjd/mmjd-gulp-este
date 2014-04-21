@@ -22,6 +22,7 @@ jsdom = require('jsdom').jsdom
 livereload = require 'gulp-livereload'
 minifyCss = require 'gulp-minify-css'
 mocha = require 'gulp-mocha'
+open = require 'open'
 path = require 'path'
 plumber = require 'gulp-plumber'
 react = require 'react'
@@ -81,13 +82,20 @@ module.exports = class GulpEste
     @param {(string|Array.<string>)} paths
     @return {Stream} Node.js Stream.
   ###
-  react: (paths) ->
+  jsx: (paths) ->
     paths = [paths] if not Array.isArray paths
     gulp.src @changedFilePath ? paths, base: '.'
       .pipe plumber()
       .pipe gulpReact harmony: true
       .on 'error', (err) -> gutil.log err.message
       .pipe gulp.dest '.'
+
+  ###*
+    Alias for jsx method.
+    @deprecated Use jsx instead.
+  ###
+  react: ->
+    @jsx.apply @, arguments
 
   ###*
     @param {(string|Array.<string>)} paths
@@ -336,3 +344,24 @@ module.exports = class GulpEste
     gulp.src paths, read: false
       .pipe filter isOrphan
       .pipe rimraf()
+
+  ###*
+    @param {string} target The file/uri to open.
+    @param {string=} appName The application to be used to open the file. For
+      example: 'chrome', 'firefox'.
+    @return {ChildProcess} The child process object.
+  ###
+  open: (target, appName = '') ->
+    open target, appName
+
+  ###*
+    @param {string} depsFilePath
+    @param {RegExp} regExp
+    @return {Array.<string>}
+  ###
+  getProvidedNamespaces: (depsFilePath, regExp) ->
+    provided = {}
+    fs.readFileSync depsFilePath, 'utf8'
+      .replace regExp, (match, namespace) ->
+        provided[namespace] = true
+    Object.keys provided

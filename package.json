@@ -62,15 +62,16 @@
     "gulp-plumber": "^0.6.1",
     "gulp-react": "^0.3.2",
     "gulp-rename": "^1.2.0",
+    "gulp-rimraf": "0.0.10",
     "gulp-size": "^0.3.0",
     "gulp-stylus": "^0.2.1",
     "gulp-util": "^2.2.14",
     "jsdom": "^0.10.5",
     "lodash": "^2.4.1",
+    "open": "0.0.5",
     "react": "^0.10.0",
     "require-uncache": "0.0.2",
-    "sinon": "^1.9.1",
-    "gulp-rimraf": "0.0.10"
+    "sinon": "^1.9.1"
   },
   "devDependencies": {
     "coffee-script": "^1.7.1",
