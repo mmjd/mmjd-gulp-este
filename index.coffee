@@ -17,6 +17,11 @@ size = require 'gulp-size'
 
 module.exports = class GulpEste
 
+  ###*
+    @param {string} dirname __dirname or something else.
+    @param {boolean} production Production flag.
+    @param {string=} depsPrefix Optional deps prefix.
+  ###
   constructor: (@dirname, @production, @depsPrefix) ->
     @globals = Object.keys global
 

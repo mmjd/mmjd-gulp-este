@@ -1,8 +1,11 @@
 gulp = require 'gulp'
 
+GulpEste = require './index'
 coffee = require 'gulp-coffee'
 gutil = require 'gulp-util'
 yargs = require 'yargs'
+
+este = new GulpEste __dirname, true
 
 gulp.task 'coffee', ->
   gulp.src 'index.coffee'
@@ -13,5 +16,4 @@ gulp.task 'coffee', ->
 gulp.task 'test', ['coffee'], ->
 
 gulp.task 'bump', ['coffee'], (done) ->
-  este = require './index'
   este.bump './*.json', yargs, done
