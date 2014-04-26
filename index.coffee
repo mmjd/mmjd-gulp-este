@@ -30,7 +30,6 @@ module.exports = class GulpEste
   liveReloadServer: null
 
   ###*
-    NOTE: gulp-stylus doesn't report fileName on error. Waiting for Gulp 4.
     @param {(string|Array.<string>)} paths
     @return {Stream} Node.js Stream.
   ###
@@ -73,7 +72,6 @@ module.exports = class GulpEste
       .pipe gulp.dest '.'
 
   ###*
-    NOTE: gulp-react doesn't report fileName on error. Waiting for Gulp 4.
     @param {(string|Array.<string>)} paths
     @return {Stream} Node.js Stream.
   ###
@@ -274,7 +272,6 @@ module.exports = class GulpEste
       .pipe gulp.dest dest
 
   ###*
-    TODO: Do it smarter.
     @param {string} dirs
     @return {Array.<string>}
   ###
