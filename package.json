@@ -17,9 +17,6 @@
   "scripts": {
     "test": "gulp test"
   },
-  "files": [
-    "index.js"
-  ],
   "keywords": [
     "closure",
     "coffeescript",
