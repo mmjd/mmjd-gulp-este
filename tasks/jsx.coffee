@@ -14,5 +14,6 @@ module.exports = (paths) ->
   gulp.src @changedFilePath ? paths, base: '.'
     .pipe cond @changedFilePath, plumber()
     .pipe jsx harmony: true
-    .on 'error', (err) -> gutil.log gutil.colors.red err.message
+    .on 'error', (err) ->
+      gutil.log gutil.colors.red err.fileName + ': ' + err.message
     .pipe gulp.dest '.'
