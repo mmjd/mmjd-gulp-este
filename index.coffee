@@ -37,11 +37,17 @@ module.exports = class GulpEste
   stylus: (paths) ->
     stylus = require 'gulp-stylus'
 
+    # Don't emit error on build, only for watch mode.
+    # It prevents false positive builds.
+    watchMode = !!@changedFilePath
     paths = [paths] if not Array.isArray paths
+
     streams = paths.map (path) =>
       gulp.src path, base: '.'
-        .pipe stylus set: ['include css']
-        .on 'error', (err) -> gutil.log err.message
+        .pipe plumber (error) ->
+          # This ensures watching is not interrupted on error.
+          this.emit 'end' if watchMode
+        .pipe stylus set: ['include css'], errors: true
         .pipe gulp.dest '.'
         .pipe rename (path) ->
           path.dirname = path.dirname.replace '/css', '/build'
@@ -49,9 +55,6 @@ module.exports = class GulpEste
         .pipe cond @production, minifyCss()
         .pipe gulp.dest '.'
     eventStream.merge streams...
-    # NOTE: Ensure watch isn't stopped on error. Waiting for Gulp 4.
-    # github.com/gulpjs/gulp/issues/258.
-    return
 
   ###*
     @param {(string|Array.<string>)} paths
