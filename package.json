@@ -17,6 +17,10 @@
   "scripts": {
     "test": "gulp test"
   },
+  "files": [
+    "tasks/**/*.js",
+    "index.js"
+  ],
   "keywords": [
     "closure",
     "coffeescript",
