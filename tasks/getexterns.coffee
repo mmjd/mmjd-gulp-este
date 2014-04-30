@@ -1,5 +1,3 @@
-gulp = require 'gulp'
-
 ###*
   @param {string} dirs
   @return {Array.<string>}

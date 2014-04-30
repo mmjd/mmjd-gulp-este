@@ -1,5 +1,3 @@
-gulp = require 'gulp'
-
 ###*
   @return {boolean}
 ###

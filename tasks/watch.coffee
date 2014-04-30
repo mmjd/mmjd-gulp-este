@@ -1,5 +1,3 @@
-gulp = require 'gulp'
-
 ###*
   @param {Array.<string>} dirs
   @param {Object} mapExtensionToTask

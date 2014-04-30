@@ -1,5 +1,3 @@
-gulp = require 'gulp'
-
 ###*
   @param {string} cmd
   @param {Array.<string>} args

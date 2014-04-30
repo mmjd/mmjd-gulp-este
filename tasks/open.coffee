@@ -1,5 +1,3 @@
-gulp = require 'gulp'
-
 ###*
   @param {string} target The file/uri to open.
   @param {string=} appName The application to be used to open the file. For

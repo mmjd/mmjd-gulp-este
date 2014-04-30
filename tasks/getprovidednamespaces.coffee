@@ -1,5 +1,3 @@
-gulp = require 'gulp'
-
 ###*
   @param {string} depsFilePath
   @param {RegExp} regExp
