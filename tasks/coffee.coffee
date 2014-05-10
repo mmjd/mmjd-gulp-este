@@ -14,11 +14,12 @@ module.exports = (paths, options = {}) ->
   plumber = require 'gulp-plumber'
   rename = require 'gulp-rename'
 
-  # Example:
-  # srcToJs = (path) ->
-  #   path.dirname = path.dirname.replace /^src/, (dir) -> 'js'
-  # gulp.task 'coffee', ->
-  #   este.coffee paths.coffee, rename: srcToJs
+  ###
+  Example:
+  gulp.task 'coffee', ->
+    este.coffee paths.coffee, rename: (path) ->
+      path.dirname = path.dirname.replace /^src/, (dir) -> 'js'
+  ###
   renameCallback = options.rename ? ->
 
   paths = [paths] if not Array.isArray paths
