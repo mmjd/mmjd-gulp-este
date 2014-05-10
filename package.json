@@ -46,7 +46,7 @@
     "este-watch": "0.0.4",
     "event-stream": "^3.1.2",
     "gulp": "^3.6.1",
-    "gulp-bg": "0.0.4",
+    "gulp-bg": "0.0.5",
     "gulp-bump": "^0.1.7",
     "gulp-closure-compiler": "^0.2.1",
     "gulp-closure-deps": "^0.3.1",
@@ -70,10 +70,10 @@
     "jsdom": "^0.10.5",
     "lodash": "^2.4.1",
     "open": "0.0.5",
+    "q": "^1.0.1",
     "react": "^0.10.0",
     "require-uncache": "0.0.2",
-    "sinon": "^1.9.1",
-    "q": "^1.0.1"
+    "sinon": "^1.9.1"
   },
   "devDependencies": {
     "coffee-script": "^1.7.1",
