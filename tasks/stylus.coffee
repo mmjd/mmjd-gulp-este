@@ -22,7 +22,7 @@ module.exports = (paths) ->
       .pipe plumber (error) ->
         # This ensures watching is not interrupted on error.
         this.emit 'end' if watchMode
-      .pipe stylus set: ['include css'], errors: true
+      .pipe stylus 'include css': true, errors: true
       .pipe gulp.dest '.'
       .pipe rename (path) ->
         path.dirname = path.dirname.replace '/css', '/build'
