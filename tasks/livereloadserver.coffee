@@ -1,13 +1,14 @@
 module.exports = ->
   Q = require 'q'
-  liveReload = require 'gulp-livereload'
 
-  @liveReload = liveReload()
-
-  # Ensure "Live reload server listening on: 35729" is shown right after
-  # "Starting 'livereload-notify'" in gulp log output.
+  # Ensure "Live reload server listening on: 35729" console message is shown
+  # right after "Starting 'livereload-notify'".
   deferred = Q.defer();
   setTimeout ->
     deferred.resolve()
   , 1
+
+  @liveReload = require 'gulp-livereload'
+  @liveReload.listen()
+
   deferred.promise
