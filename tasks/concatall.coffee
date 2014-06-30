@@ -9,6 +9,7 @@ module.exports = (object) ->
   concat = require 'gulp-concat'
   cond = require 'gulp-cond'
   eventStream = require 'event-stream'
+  gutil = require 'gulp-util'
   path = require 'path'
   size = require 'gulp-size'
 
@@ -23,6 +24,7 @@ module.exports = (object) ->
         compilerPath: 'bower_components/closure-compiler/compiler.jar'
         fileName: path.basename buildPath
         compilerFlags: warning_level: 'QUIET'
+      .on 'error', (err) -> gutil.log gutil.colors.red err.message
       .pipe cond @production, size showFiles: true, gzip: true
       .pipe gulp.dest path.dirname buildPath
   eventStream.merge streams...
