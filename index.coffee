@@ -18,6 +18,7 @@ module.exports = class GulpEste
   deps: require './tasks/deps'
   diContainer: require './tasks/dicontainer'
   getExterns: require './tasks/getexterns'
+  getNodeJsExterns: require './tasks/getnodejsexterns'
   getProvidedNamespaces: require './tasks/getprovidednamespaces'
   jsx: require './tasks/jsx'
   liveReloadNotify: require './tasks/livereloadnotify'
