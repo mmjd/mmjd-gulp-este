@@ -26,7 +26,7 @@ module.exports = (paths, options = {}) ->
   gulp.src @changedFilePath ? paths, base: '.'
     .pipe cond @changedFilePath, plumber()
     .pipe coffee bare: true
-    .on 'error', (err) -> gutil.log gutil.colors.red err.message
+    .on 'error', (err) -> gutil.log gutil.colors.red err.stack
     .pipe coffee2closure()
     .pipe rename (path) ->
       renameCallback path
