@@ -1,6 +1,6 @@
 {
   "name": "gulp-este",
-  "version": "0.5.9",
+  "version": "1.0.0",
   "description": "Gulp tasks for Este.js",
   "license": "MIT",
   "repository": {
