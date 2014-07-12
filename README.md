@@ -34,6 +34,10 @@ Take a look at Este.js [gulpfile.coffee](https://github.com/steida/este/blob/mas
 - unitTest
 - watch
 
+## Notes
+Bump tasks is still using gulp-git 0.3.6, because 0.4.x introduces some bugs,
+which were still not resolved.
+
 ## License
 
 MIT © [Daniel Steigerwald](https://github.com/steida)
