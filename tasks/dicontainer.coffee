@@ -9,6 +9,7 @@ module.exports = (baseJsDir, diContainers) ->
   closureDeps = require 'gulp-closure-deps'
   diContainer = require 'gulp-closure-dicontainer'
   eventStream = require 'event-stream'
+  gutil = require 'gulp-util'
 
   streams = for container, i in diContainers
     gulp.src 'tmp/deps0.js'
@@ -17,6 +18,7 @@ module.exports = (baseJsDir, diContainers) ->
         fileName: container.name.toLowerCase().replace('.', '') + '.js'
         name: container.name
         resolve: container.resolve
+      .on 'error', (err) -> gutil.log gutil.colors.red err.message
       .pipe gulp.dest 'tmp'
       .pipe closureDeps prefix: @depsPrefix, fileName: "deps#{i+1}.js"
       .pipe gulp.dest 'tmp'
