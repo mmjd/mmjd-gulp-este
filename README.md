@@ -17,16 +17,16 @@ Take a look at Este.js [gulpfile.coffee](https://github.com/steida/este/blob/mas
 
 - bg (run command line app with args)
 - bump (bump packages version)
-- coffee
-- compile (via Closure Compiler)
-- concatAll (concat all files for browser)
-- concatDeps
+- coffee (CoffeeScript)
+- compile (Closure Compiler)
+- concatAll (concat all files for production)
+- concatDeps (helper)
 - deleteOrphans (delete foo.js without foo.coffee, etc.)
-- diContainer (generate DI containers)
-- getExterns (retrieve Node.js externs files)
+- diContainer (generate awesome DI containers)
+- getNodeJsExterns
+- jsx (React JSX)
 - liveReloadNotify
 - liveReloadServer
-- react
 - setNodeEnv
 - shouldCreateDeps (for watch mode, create deps only when needed)
 - shouldNotify

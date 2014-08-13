@@ -14,9 +14,8 @@ module.exports = (paths, options = {}) ->
 
   ###
   Example:
-  gulp.task 'coffee', ->
-    este.coffee paths.coffee, rename: (path) ->
-      path.dirname = path.dirname.replace /^src/, (dir) -> 'js'
+    gulp.task 'jsx', ->
+      este.jsx paths.jsx
   ###
   renameCallback = options.rename ? ->
 
