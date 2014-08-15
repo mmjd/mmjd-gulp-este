@@ -11,6 +11,7 @@ module.exports = (paths) ->
   plumber = require 'gulp-plumber'
   rename = require 'gulp-rename'
   stylus = require 'gulp-stylus'
+  pathOs = require 'path'
 
   # Don't emit error on build, only for watch mode.
   # It prevents false positive builds.
@@ -25,7 +26,9 @@ module.exports = (paths) ->
       .pipe stylus 'include css': true, errors: true
       .pipe gulp.dest '.'
       .pipe rename (path) ->
-        path.dirname = path.dirname.replace '/css', '/build'
+        cssPath = pathOs.normalize '/css'
+        buildPath = pathOs.normalize '/build'
+        path.dirname = path.dirname.replace cssPath, buildPath
         return
       .pipe cond @production, minifyCss()
       .pipe gulp.dest '.'
