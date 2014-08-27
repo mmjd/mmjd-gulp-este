@@ -57,9 +57,18 @@ module.exports = (baseJsDir, paths) ->
     jsPath = file.path.replace '_test.js', '.js'
     return false if not fs.existsSync jsPath
     relativePath = path.join @depsPrefix, jsPath.replace @dirname, ''
-    namespaces = goog.dependencies_.pathToNames[relativePath];
-    namespace = Object.keys(namespaces)[0]
-    goog.require namespace if namespace
+
+    # For previous Closure Library base.js implementation.
+    if goog.dependencies_.pathToNames
+      namespaces = goog.dependencies_.pathToNames[relativePath];
+      namespace = Object.keys(namespaces)[0]
+      goog.require namespace if namespace
+    # For new Closure Library base.js implementation.
+    else
+      for namespace, fileRelativePath of goog.dependencies_.nameToPath
+        if fileRelativePath == relativePath
+          goog.require namespace
+          break
     true
 
   gulp.src changedFilePath ? paths
