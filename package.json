@@ -1,6 +1,6 @@
 {
-  "name": "gulp-este",
-  "version": "1.0.8",
+  "name": "mmjd-gulp-este",
+  "version": "1.0.8.0",
   "description": "Gulp tasks for Este.js",
   "license": "MIT",
   "repository": {
@@ -61,7 +61,7 @@
     "gulp-minify-css": "^0.3.1",
     "gulp-mocha": "^0.5.0",
     "gulp-plumber": "^0.6.1",
-    "gulp-react": "^0.5.0",
+    "mmjd-gulp-react": "https://github.com/mmjd/gulp-react.git",
     "gulp-rename": "^1.2.0",
     "gulp-rimraf": "^0.1.0",
     "gulp-size": "^0.4.0",
