@@ -8,7 +8,7 @@ gulp = require 'gulp'
 module.exports = (paths, options = {}) ->
   cond = require 'gulp-cond'
   gutil = require 'gulp-util'
-  jsx = require 'gulp-react'
+  jsx = require 'mmjd-gulp-react'
   plumber = require 'gulp-plumber'
   rename = require 'gulp-rename'
 
