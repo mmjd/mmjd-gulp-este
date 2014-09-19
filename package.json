@@ -61,7 +61,7 @@
     "gulp-minify-css": "^0.3.1",
     "gulp-mocha": "^0.5.0",
     "gulp-plumber": "^0.6.1",
-    "mmjd-gulp-react": "https://github.com/mmjd/gulp-react.git",
+    "mmjd-gulp-react": "git+https://github.com/mmjd/gulp-react.git#master",
     "gulp-rename": "^1.2.0",
     "gulp-rimraf": "^0.1.0",
     "gulp-size": "^0.4.0",
