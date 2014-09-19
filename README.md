@@ -6,7 +6,7 @@
 ## Install
 
 ```
-npm install --save-dev gulp-este
+npm install --save-dev mmjd-gulp-este
 ```
 
 ## Example
